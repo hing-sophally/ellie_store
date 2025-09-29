@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Clean E-commerce Store</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<style>
+		:root {
+            --primary-color: #2563eb;
+            --secondary-color: #f8fafc;
+            --accent-color: #059669;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --border-light: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
+
+        /* Header Improvements */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        /* Hero Carousel Enhancements */
+        .hero-carousel {
+            margin-bottom: 4rem;
+            border-radius: 0 0 24px 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 60px;
+            height: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-control-prev {
+            left: 20px;
+        }
+
+        .carousel-control-next {
+            right: 20px;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-color);
+            mask: none;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Category Cards */
+        .categories-section {
+            padding: 4rem 0;
+            background: var(--secondary-color);
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            height: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .category-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .category-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.1);
+        }
+
+        .category-image i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .category-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .category-name:hover {
+            color: var(--primary-color);
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 4rem 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-light);
+            height: 500px; /* Fixed height for consistency */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            background: var(--secondary-color);
+            height: 280px; /* Fixed height for image container */
+            flex-shrink: 0;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top; /* Focus on top part of image like the fashion photo */
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            line-height: 1.4;
+            height: 3.2em; /* Fixed height for 2 lines */
+            overflow: hidden;
+        }
+
+        .product-title:hover {
+            color: var(--primary-color);
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .rating-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto; /* Push to bottom */
+        }
+
+        .add-to-cart-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .carousel-item img {
+                height: 250px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 45px;
+                height: 45px;
+            }
+
+            .product-card {
+                height: 450px; /* Slightly shorter on mobile */
+            }
+
+            .product-image-container {
+                height: 250px; /* Shorter image on mobile */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .product-card {
+                height: 400px; /* Even shorter on small screens */
+            }
+
+            .product-image-container {
+                height: 200px;
+            }
+
+            .product-info {
+                padding: 1rem;
+            }
+
+            .product-title {
+                font-size: 1rem;
+                height: 2.8em;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+	</style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="#"><i class="fas fa-store me-2"></i>Ellie Store</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+				<li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+				<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!-- Hero Carousel -->
+<section id="home" style="margin-top: 76px;">
+	<div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=400&fit=crop&crop=entropy&cs=tinysrgb" class="d-block w-100" alt="Store Banner">
+				<div class="carousel-caption d-none d-md-block">
+					<h2 class="display-4 fw-bold">Welcome to Our Store</h2>
+					<p class="lead">Discover amazing products at great prices</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=400&fit=crop&crop=entropy&cs=tinysrgb" class="d-block w-100" alt="Shopping Banner">
+				<div class="carousel-caption d-none d-md-block">
+					<h2 class="display-4 fw-bold">Latest Collection</h2>
+					<p class="lead">Shop the newest trends and styles</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=400&fit=crop&crop=entropy&cs=tinysrgb" class="d-block w-100" alt="Deals Banner">
+				<div class="carousel-caption d-none d-md-block">
+					<h2 class="display-4 fw-bold">Special Offers</h2>
+					<p class="lead">Up to 50% off on selected items</p>
+				</div>
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon"></span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+			<span class="carousel-control-next-icon"></span>
+		</button>
+	</div>
+</section>
+
+<!-- Categories Section -->
+<section id="categories" class="categories-section">
+	<div class="container">
+		<div class="section-header">
+			<h2 class="section-title">Shop by Category</h2>
+			<p class="section-subtitle">Explore our wide range of product categories</p>
+		</div>
+		<div class="row g-4">
+			<div class="col-lg-2 col-md-4 col-6" th:each="c:${category}">
+				<div class="category-card">
+					<div class="category-image">
+						<img th:src="@{'img/category_img/'+${c.imageName}}"
+							 alt="Category Image"
+							 style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
+					</div>
+					<a th:href="@{'/products?category='+${c.name}}"
+					   class="category-name text-decoration-none">[[${c.name}]]</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Products Section -->
+<section id="products" class="products-section">
+	<div class="container">
+		<div class="section-header">
+			<h2 class="section-title">Latest Products</h2>
+			<p class="section-subtitle">Check out our newest additions to the store</p>
+		</div>
+		<div class="row g-4">
+			<div class="col-lg-3 col-md-6" th:each="p:${products}">
+				<div class="product-card">
+					<div class="product-image-container">
+						<img th:src="@{'img/product_img/'+${p.image}}"
+							 alt="Product Image"
+							 class="product-image">
+						<span class="product-badge">New</span>
+					</div>
+					<div class="product-info">
+						<div class="product-details">
+							<a th:href="@{'/product/'+${p.id}}"
+							   class="product-title text-decoration-none">[[${p.title}]]</a>
+							<div class="product-price" th:if="${p.price}">$[[${p.price}]]</div>
+							<div class="product-price" th:unless="${p.price}">Contact for Price</div>
+							<div class="product-rating">
+								<div class="stars">
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
+									<i class="far fa-star"></i>
+								</div>
+								<span class="rating-text">(Reviews)</span>
+							</div>
+						</div>
+						<button class="add-to-cart-btn" th:onclick="'addToCart(' + ${p.id} + ')'">
+							<i class="fas fa-shopping-cart me-2"></i>Add to Cart
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script>
+	// Auto-start carousel
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = new bootstrap.Carousel(document.getElementById('heroCarousel'), {
+            interval: 5000,
+            wrap: true
+        });
+    });
+
+    // Add to cart function (you can customize this)
+    function addToCart(productId) {
+        // Add your cart logic here
+        console.log('Adding product ' + productId + ' to cart');
+
+        // Example: You could make an AJAX call to your backend
+        // fetch('/cart/add/' + productId, { method: 'POST' })
+        //   .then(response => response.json())
+        //   .then(data => console.log(data));
+
+        // Show a simple alert for now
+        alert('Product added to cart!');
+    }
+</script>
+</body>
+</html>
